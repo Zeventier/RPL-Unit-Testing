@@ -37,9 +37,9 @@
         </form>
     </div>
     <div class="container mt-5">
-        <table class="table table-dark table-striped table-hover">
+        <table class="table table-light table-striped table-hover">
             <thead>
-                <tr>
+                <tr class="table-dark">
                     <th scope="col">#</th>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
