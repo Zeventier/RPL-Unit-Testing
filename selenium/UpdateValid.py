@@ -24,7 +24,8 @@ except NoSuchElementException:
 
 time.sleep(2)
 try:
-    driver.find_element_by_id("updt-nama").send_keys("Buku")
+    driver.find_element_by_id("updt_nama").clear()
+    driver.find_element_by_id("updt_nama").send_keys("Buku")
 
 except NoSuchElementException:
     pass
