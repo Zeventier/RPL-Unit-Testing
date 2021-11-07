@@ -210,9 +210,8 @@ spl_autoload_register(function ($className) {
                 <form action="" method="post">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="Text1" class="form-label">Nama barang </label>
-                            <input type="text" name="nama" class="form-control" id="Text1" required>
-                            <div id="emailHelp" class="form-text">Caption</div>
+                            <label for="nama-barang" class="form-label">Nama barang </label>
+                            <input type="text" name="nama" class="form-control" id="nama-barang" required>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Harga satuan</label>
@@ -224,17 +223,15 @@ spl_autoload_register(function ($className) {
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="Text1" class="form-label">Jumlah</label>
-                            <input type="number" name="ammount" class="fieldInsertInput form-control" id="ammount" required>
-                            <div id="emailHelp" class="form-text">Caption</div>
+                            <label for="amount" class="form-label">Jumlah</label>
+                            <input type="number" name="amount" class="fieldInsertInput form-control" id="amount" required>
                         </div>
                         <div class="mb-3">
-                            <label for="Text1" class="form-label">Tanggal beli</label>
-                            <input type="date" name="tanggal" class="form-control" id="Text1" required>
-                            <div id="emailHelp" class="form-text">Caption</div>
+                            <label for="date" class="form-label">Tanggal beli</label>
+                            <input type="date" name="tanggal" class="form-control" id="date" required>
                         </div>
                         <div class="mb-3">
-                            <label for="price" class="form-label">Total</label>
+                            <label for="total" class="form-label">Total</label>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
