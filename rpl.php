@@ -21,8 +21,9 @@ spl_autoload_register(function ($className) {
 <body>
     <div class="container mt-4 position-absolute top-50 start-50 translate-middle">
         <?php
+        //for inserting...
+        // private  $nama_barang, $harga_satuan, $jumlah, $tanggal_beli, $total;
         session_start();
-        //buat insert data
         if (isset($_POST['submit'])) {
             $nama = $_POST['nama'];
             $price = $_POST['price'];
@@ -37,16 +38,25 @@ spl_autoload_register(function ($className) {
             $penjualan->setTotal($total);
 
             if ($penjualan->insert()) {
-                $_SESSION['dataInput'] == 'success';
+                $_SESSION['dataInput'] = 'success';
 
                 header('Location: ' . $_SERVER['PHP_SELF']);
                 exit;
             } else {
-                $_SESSION['dataInput'] == 'fail';
+                $_SESSION['dataInput'] = 'fail';
 
                 header('Location: ' . $_SERVER['PHP_SELF']);
                 exit;
             }
+        }
+        //Message
+        if (isset($_SESSION['dataInput'])) {
+            if ($_SESSION['dataInput'] == 'success') {
+                echo "<span class='insert'>Data Inserted Successfully...</span>";
+            } elseif ($_SESSION['dataInput'] == 'fail') {
+                echo "<span class='insert'>Data Inserted Failed...</span>";
+            }
+            unset($_SESSION['dataInput']);
         }
         ?>
         <div class="card">
