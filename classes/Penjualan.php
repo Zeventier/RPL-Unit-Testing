@@ -30,7 +30,7 @@ class Penjualan
     public function insert()
     {
         $sql = "INSERT INTO $this->table(nama_barang,harga_satuan,jumlah, tanggal_beli, total) VALUES(:nama,:price,:ammount,:tanggal,:total)";
-        $stmt = DB::prepared($sql);
+        $stmt = (new DB)->prepared($sql);
         $stmt->bindParam(':nama', $this->nama_barang);
         $stmt->bindParam(':price', $this->harga_satuan);
         $stmt->bindParam(':ammount', $this->jumlah);
@@ -42,7 +42,7 @@ class Penjualan
     public function readAll()
     {
         $sql = "SELECT * FROM $this->table";
-        $stmt = DB::prepared($sql);
+        $stmt = (new DB)->prepared($sql);
         $stmt->execute();
         $result = $stmt->fetchAll();
 
@@ -53,19 +53,22 @@ class Penjualan
     public function readById($id)
     {
         $sql = "SELECT * FROM $this->table WHERE id=:id";
-        $stmt = DB::prepared($sql);
+        $stmt = (new DB)->prepared($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         return $stmt->fetch();
     }
     public function delete($id)
     {
-        // some code
+        $sql = "DELETE FROM $this->table WHERE id=:id";
+        $stmt = (new DB)->prepared($sql);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
     }
     public function update($id)
     {
         $sql  = "UPDATE $this->table SET nama_barang=:nama, harga_satuan=:price, jumlah=:ammount, tanggal_beli=:tanggal, total=:total WHERE id=:id";
-        $stmt = DB::prepared($sql);
+        $stmt = (new DB)->prepared($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nama', $this->nama_barang);
         $stmt->bindParam(':price', $this->harga_satuan);
