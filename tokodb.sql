@@ -28,9 +28,20 @@ CREATE TABLE `penjualan` (
   `tanggal_beli` date DEFAULT NULL,
   `total` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 /*Data for the table `penjualan` */
+
+insert  into `penjualan`(`id`,`nama_barang`,`harga_satuan`,`jumlah`,`tanggal_beli`,`total`) values 
+(17,'Pensil',2000,2,'2021-11-08',4000),
+(18,'Pulpen',3000,4,'2021-11-03',12000),
+(19,'Penggaris',10000,1,'2021-10-31',10000),
+(20,'Indomie Goreng',3000,10,'2021-11-07',30000),
+(21,'Kecap Manis ABC',5000,2,'2021-10-13',10000),
+(22,'Aqua 600ml',4000,2,'2021-10-28',8000),
+(24,'Masker',5000,50,'2021-10-21',250000),
+(25,'Sabun',15000,1,'2021-10-28',15000),
+(26,'Rokok',20000,1,'2021-10-13',20000);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
