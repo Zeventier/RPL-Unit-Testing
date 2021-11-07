@@ -1,11 +1,21 @@
 <?php
 
+spl_autoload_register(function ($className) {
+    include 'classes/' . $className . '.php';
+});
+
+
 class Penjualan
 {
     private $table = 'penjualan';
 
-    private  $nama_barang, $harga_satuan, $jumlah, $tanggal_beli, $total;
-
+    public $harga_satuan, $jumlah, $tanggal_beli, $total;
+    public int $id;
+    public string $nama_barang;
+    public function setID($id)
+    {
+        $this->id = $id;
+    }
     public function setNama($nama_barang)
     {
         $this->nama_barang = $nama_barang;
@@ -29,8 +39,9 @@ class Penjualan
 
     public function insert()
     {
-        $sql = "INSERT INTO $this->table(nama_barang,harga_satuan,jumlah, tanggal_beli, total) VALUES(:nama,:price,:ammount,:tanggal,:total)";
+        $sql = "INSERT INTO $this->table(id,nama_barang,harga_satuan,jumlah, tanggal_beli, total) VALUES(:id,:nama,:price,:ammount,:tanggal,:total)";
         $stmt = (new DB)->prepared($sql);
+        $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':nama', $this->nama_barang);
         $stmt->bindParam(':price', $this->harga_satuan);
         $stmt->bindParam(':ammount', $this->jumlah);
@@ -56,6 +67,8 @@ class Penjualan
         $stmt = (new DB)->prepared($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
+        $hey = $stmt->fetch();
+        // echo $hey[0];
         return $stmt->fetch();
     }
     public function delete($id)
