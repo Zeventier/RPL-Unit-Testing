@@ -110,7 +110,30 @@ spl_autoload_register(function ($className) {
             unset($_SESSION['dataUpdate']);
         }
 
+        if (isset($_GET['action']) && $_GET['action'] == 'delete') {
+            $id = (int)$_GET['id'];
 
+            if ($penjualan->delete($id)) {
+                echo "<span class='delete'> Data deleted succesfully...</span>";
+                $_SESSION['dataDelete'] = 'success';
+
+                header('Location: ' . $_SERVER['PHP_SELF']);
+                exit;
+            } else {
+                $_SESSION['dataDelete'] = 'fail';
+
+                header('Location: ' . $_SERVER['PHP_SELF']);
+                exit;
+            }
+        }
+        if (isset($_SESSION['dataDelete'])) {
+            if ($_SESSION['dataDelete'] == 'success') {
+                echo "<span class='insert'>Data Deleted Successfully...</span>";
+            } elseif ($_SESSION['dataDelete'] == 'fail') {
+                echo "<span class='insert'>Deleting Data Failed...</span>";
+            }
+            unset($_SESSION['dataDelete']);
+        }
 
         ?>
         <div class="card">
@@ -154,7 +177,9 @@ spl_autoload_register(function ($className) {
                                     <td><?php echo "Rp" . number_format($value['total'], 2, ',', '.');  ?></td>
                                     <td class="text-right">
                                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateFormModal" onclick="<?php echo "fillUpdateForm(" . $value['id'] . ")" ?>">Edit</button>
-                                        <button class="btn btn-danger">Hapus</button>
+                                        <a class="btn btn-danger" href="index.php?action=delete&id=<?php echo $value['id']; ?>">Delete</a>
+
+                                        <!-- <button class="btn btn-danger">Hapus</button> -->
                                     </td>
                                 </tr>
                             <?php
