@@ -22,24 +22,21 @@ class PenjualanTest extends \PHPUnit\Framework\TestCase
     public function testAddSuccess()
     {
         $penjualan = new Penjualan();
-        // $penjualan->id = ;
-        // $penjualan->nama_barang = "Eko";
-        // $penjualan->password = "rahasia";
-        // $penjualan->setID(69);
-        $penjualan->setID(69);
+        $penjualan->setID("69");
         $penjualan->setNama("Udin");
         $penjualan->setHarga(200);
         $penjualan->setJumlah(2);
-        $penjualan->setTanggal('2020/02/02');
+        $penjualan->setTanggal('2020-02-02');
         $penjualan->setTotal(400);
         echo "woy tot" .  gettype($penjualan->id);
-        // $penjualan->insert();
         $penjualan->insert();
 
-        $result = $penjualan->readById(69);
-        echo "woy tot" .  gettype($result[0]);
-
-        self::assertEquals("69", $result['id']);
-        // self::assertEquals($penjualan->nama_barang, $result->nama_barang);
+        $result = $penjualan->fetchById($penjualan->id);
+        self::assertEquals($penjualan->id, $result->id);
+        self::assertEquals($penjualan->nama_barang, $result->nama_barang);
+        self::assertEquals($penjualan->harga_satuan, $result->harga_satuan);
+        self::assertEquals($penjualan->jumlah, $result->jumlah);
+        self::assertEquals($penjualan->tanggal_beli, $result->tanggal_beli);
+        self::assertEquals($penjualan->total, $result->total);
     }
 }
