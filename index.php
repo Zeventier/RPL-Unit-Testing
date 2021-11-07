@@ -139,10 +139,10 @@ spl_autoload_register(function ($className) {
         ?>
         <div class="card">
             <div class="card-header">
-                Daftar Penjualan Warung xyz
+                Daftar Penjualan
             </div>
             <div class="card-body">
-                <h5 class="card-title">Tes</h5>
+                <h5 class="card-title">Toserba xyz</h5>
                 <div class="row">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button type="button" id="insert-data-btn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#InsertFormModal" style="margin-bottom:10px;">
@@ -205,7 +205,7 @@ spl_autoload_register(function ($className) {
         <div class="modal-dialog modal-lg">
             <div class="modal-content ">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah data transaksi Warung xyz</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah data transaksi Toserba xyz</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="post">
@@ -257,7 +257,7 @@ spl_autoload_register(function ($className) {
         <div class="modal-dialog modal-lg">
             <div class="modal-content ">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit data transaksi Warung xyz</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit data transaksi Toserba xyz</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="post">
