@@ -15,7 +15,7 @@ driver.get(url)
 time.sleep(1)
 try:
     button = driver.find_element_by_xpath("//button[@onclick=\"fillUpdateForm(17)\"]")
-
+    
     # Click Button
     button.click()
 
@@ -24,28 +24,28 @@ except NoSuchElementException:
 
 time.sleep(2)
 try:
-    driver.find_element_by_id("nama-barang").send_keys("Apel")
+    driver.find_element_by_id("updt-nama").send_keys("pensil")
 
 except NoSuchElementException:
     pass
 
 time.sleep(1)
 try:
-    driver.find_element_by_id("price").send_keys("20000")
+    driver.find_element_by_id("updt_price").send_keys("2000")
 
 except NoSuchElementException:
     pass
 
 time.sleep(1)
 try:
-    driver.find_element_by_id("amount").send_keys("")
+    driver.find_element_by_id("updt_amount").send_keys("")
 
 except NoSuchElementException:
     pass
 
 time.sleep(1)
 try:
-    field = driver.find_element_by_id("date").send_keys("08/11/2021")
+    field = driver.find_element_by_id("updt_tanggal").send_keys("08/11/2021")
 
 except NoSuchElementException:
     pass
