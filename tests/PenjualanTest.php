@@ -32,14 +32,14 @@ class PenjualanTest extends \PHPUnit\Framework\TestCase
         $penjualan->setJumlah(2);
         $penjualan->setTanggal('2020/02/02');
         $penjualan->setTotal(400);
-        echo "woy tot" .  gettype($penjualan->id);
+
         // $penjualan->insert();
         $penjualan->insert();
 
         $result = $penjualan->readById(69);
-        echo "woy tot" .  gettype($result[0]);
+        echo "woy tot" .  $result[0];
 
-        self::assertEquals("69", $result['id']);
+        self::assertEquals("69", $result[0]);
         // self::assertEquals($penjualan->nama_barang, $result->nama_barang);
     }
 }

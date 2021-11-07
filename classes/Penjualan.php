@@ -39,9 +39,8 @@ class Penjualan
 
     public function insert()
     {
-        $sql = "INSERT INTO $this->table(id,nama_barang,harga_satuan,jumlah, tanggal_beli, total) VALUES(:id,:nama,:price,:ammount,:tanggal,:total)";
+        $sql = "INSERT INTO $this->table(nama_barang,harga_satuan,jumlah, tanggal_beli, total) VALUES(:nama,:price,:ammount,:tanggal,:total)";
         $stmt = (new DB)->prepared($sql);
-        $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':nama', $this->nama_barang);
         $stmt->bindParam(':price', $this->harga_satuan);
         $stmt->bindParam(':ammount', $this->jumlah);
@@ -68,8 +67,9 @@ class Penjualan
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $hey = $stmt->fetch();
+        $result = $stmt->fetchAll();
         // echo $hey[0];
-        return $stmt->fetch();
+        return $result;
     }
     public function delete($id)
     {
