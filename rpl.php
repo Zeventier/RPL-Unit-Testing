@@ -9,9 +9,46 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title>RPL Unit Testing</title>
 </head>
+<?php
+spl_autoload_register(function ($className) {
+    include 'classes/' . $className . '.php';
+});
+?>
+
+<?php $penjualan = new Penjualan(); ?>
+
 
 <body>
     <div class="container mt-4 position-absolute top-50 start-50 translate-middle">
+        <?php
+        session_start();
+        //buat insert data
+        if (isset($_POST['submit'])) {
+            $nama = $_POST['nama'];
+            $price = $_POST['price'];
+            $ammount  = $_POST['ammount'];
+            $tanggal  = $_POST['tanggal'];
+            $total  = $_POST['total'];
+
+            $penjualan->setNama($nama);
+            $penjualan->setHarga($price);
+            $penjualan->setJumlah($ammount);
+            $penjualan->setTanggal($tanggal);
+            $penjualan->setTotal($total);
+
+            if ($penjualan->insert()) {
+                $_SESSION['dataInput'] == 'success';
+
+                header('Location: ' . $_SERVER['PHP_SELF']);
+                exit;
+            } else {
+                $_SESSION['dataInput'] == 'fail';
+
+                header('Location: ' . $_SERVER['PHP_SELF']);
+                exit;
+            }
+        }
+        ?>
         <div class="card">
             <div class="card-header">
                 Daftar Penjualan Warung xyz
@@ -20,7 +57,7 @@
                 <h5 class="card-title">Tes</h5>
                 <div class="row">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin-bottom:10px;">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal" style="margin-bottom:10px;">
                             Tambah Data
                         </button>
                     </div>
@@ -38,42 +75,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>5</td>
-                            <td>5 November 2021</td>
-                            <td>100.000</td>
-                            <td class="text-right">
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
-                                <button class="btn btn-danger">Hapus</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>5</td>
-                            <td>5 November 2021</td>
-                            <td>100.000</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
-                                <button class="btn btn-danger">Hapus</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry the Bird</td>
-                            <td>@twitter</td>
-                            <td>5</td>
-                            <td>5 November 2021</td>
-                            <td>100.000</td>
-                            <td>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
-                                <button class="btn btn-danger">Hapus</button>
-                            </td>
-                        </tr>
+                        <?php
+                        $i = 0;
+                        if (is_array($penjualan->readAll()) || is_object($penjualan->readAll())) {
+                            foreach ($penjualan->readAll() as $value) {
+                                $i++;
+                        ?>
+                                <tr>
+                                    <th scope="row"><?php echo $i  ?></th>
+                                    <td><?php echo $value['nama_barang']  ?></td>
+                                    <td><?php echo $value['harga_satuan'];  ?></td>
+                                    <td><?php echo $value['jumlah'];  ?></td>
+                                    <td><?php echo $value['tanggal_beli'];  ?></td>
+                                    <td><?php echo $value['total'];  ?></td>
+                                    <td class="text-right">
+
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">Edit</button>
+                                        <button class="btn btn-danger">Hapus</button>
+                                    </td>
+                                </tr>
+                            <?php
+                            }
+                        } else {
+                            ?>
+                            <tr>
+                                <td>No data</td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -81,42 +111,99 @@
 
     </div>
 
-    <!-- modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Form modal -->
+    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content ">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Data transaksi Warung xyz</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="Text1" class="form-label">Text </label>
-                            <input type="text" class="form-control" id="Text1">
-                            <div id="emailHelp" class="form-text">Caption</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Text1" class="form-label">Text</label>
-                            <input type="text" class="form-control" id="Text1">
-                            <div id="emailHelp" class="form-text">Caption</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Text1" class="form-label">Text</label>
-                            <input type="text" class="form-control" id="Text1">
-                            <div id="emailHelp" class="form-text">Caption</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="Text1" class="form-label">Text</label>
-                            <input type="text" class="form-control" id="Text1">
-                            <div id="emailHelp" class="form-text">Caption</div>
-                        </div>
+                <?php
+                if (isset($_GET['action']) && $_GET['action'] == 'update') {
+                    $id = (int)$_GET['id'];
+                    $result = $user->readById($id);
+                ?>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ubah data transaksi Warung xyz</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="Text1" class="form-label">Text </label>
+                                <input type="text" class="form-control" id="Text1">
+                                <div id="emailHelp" class="form-text">Caption</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Text1" class="form-label">Text</label>
+                                <input type="text" class="form-control" id="Text1">
+                                <div id="emailHelp" class="form-text">Caption</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Text1" class="form-label">Text</label>
+                                <input type="text" class="form-control" id="Text1">
+                                <div id="emailHelp" class="form-text">Caption</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Text1" class="form-label">Text</label>
+                                <input type="text" class="form-control" id="Text1">
+                                <div id="emailHelp" class="form-text">Caption</div>
+                            </div>
 
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                <?php
+
+
+                } else {
+                ?>
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah data transaksi Warung xyz</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="" method="post">
+
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="Text1" class="form-label">Nama barang </label>
+                                <input type="text" name="nama" class="form-control" id="Text1">
+                                <div id="emailHelp" class="form-text">Caption</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Text1" class="form-label">Harga satuan</label>
+                                <input type="text" name="price" class="form-control" id="Text1">
+                                <div id="emailHelp" class="form-text">Caption</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Text1" class="form-label">Jumlah</label>
+                                <input type="text" name="ammount" class="form-control" id="Text1">
+                                <div id="emailHelp" class="form-text">Caption</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Text1" class="form-label">Tanggal beli</label>
+                                <input type="date" name="tanggal" class="form-control" id="Text1">
+                                <div id="emailHelp" class="form-text">Caption</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Text1" class="form-label">Total</label>
+                                <input type="text" name="total" class="form-control" id="Text1">
+                                <div id="emailHelp" class="form-text">Caption</div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" name="submit" value="Submit" />
+
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
+                <?php
+                }
+
+                ?>
+
+
             </div>
         </div>
     </div>
