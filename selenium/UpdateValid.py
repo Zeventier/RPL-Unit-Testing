@@ -32,6 +32,7 @@ except NoSuchElementException:
 
 time.sleep(1)
 try:
+    driver.find_element_by_id("updt_nama").clear()
     driver.find_element_by_id("updt_price").send_keys("5000")
 
 except NoSuchElementException:
@@ -39,6 +40,7 @@ except NoSuchElementException:
 
 time.sleep(1)
 try:
+    driver.find_element_by_id("updt_nama").clear()
     driver.find_element_by_id("updt_amount").send_keys("7")
 
 except NoSuchElementException:
@@ -46,6 +48,7 @@ except NoSuchElementException:
 
 time.sleep(1)
 try:
+    driver.find_element_by_id("updt_nama").clear()
     field = driver.find_element_by_id("updt_tanggal").send_keys("10/11/2021")
 
 except NoSuchElementException:
