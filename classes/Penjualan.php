@@ -64,6 +64,14 @@ class Penjualan
     }
     public function update($id)
     {
-        // some code
+        $sql  = "UPDATE $this->table SET nama_barang=:nama, harga_satuan=:price, jumlah=:ammount, tanggal_beli=:tanggal, total=:total WHERE id=:id";
+        $stmt = DB::prepared($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':nama', $this->nama_barang);
+        $stmt->bindParam(':price', $this->harga_satuan);
+        $stmt->bindParam(':ammount', $this->jumlah);
+        $stmt->bindParam(':tanggal', $this->tanggal_beli);
+        $stmt->bindParam(':total', $this->total);
+        return $stmt->execute();
     }
 }

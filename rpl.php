@@ -74,6 +74,44 @@ spl_autoload_register(function ($className) {
             }
             unset($_SESSION['dataInput']);
         }
+
+        if (isset($_POST['update'])) {
+            $id = $_POST['id'];
+            $nama = $_POST['updt_nama'];
+            $price = $_POST['updt_price'];
+            $ammount  = $_POST['updt_ammount'];
+            $tanggal  = $_POST['updt_tanggal'];
+            $total  = $_POST['updt_total'];
+
+            $penjualan->setNama($nama);
+            $penjualan->setHarga($price);
+            $penjualan->setJumlah($ammount);
+            $penjualan->setTanggal($tanggal);
+            $penjualan->setTotal($total);
+
+            if ($penjualan->update($id)) {
+                $_SESSION['dataUpdate'] = 'success';
+
+                header('Location: ' . $_SERVER['PHP_SELF']);
+                exit;
+            } else {
+                $_SESSION['dataUpdate'] = 'fail';
+
+                header('Location: ' . $_SERVER['PHP_SELF']);
+                exit;
+            }
+        }
+        if (isset($_SESSION['dataUpdate'])) {
+            if ($_SESSION['dataUpdate'] == 'success') {
+                echo "<span class='insert'>Data Updated Successfully...</span>";
+            } elseif ($_SESSION['dataUpdate'] == 'fail') {
+                echo "<span class='insert'>Updating Data Failed...</span>";
+            }
+            unset($_SESSION['dataUpdate']);
+        }
+
+
+
         ?>
         <div class="card">
             <div class="card-header">
@@ -200,6 +238,7 @@ spl_autoload_register(function ($className) {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="" method="post">
+                    <input type="hidden" name="id" id="updt_id" value="" />
 
                     <div class="modal-body">
                         <div class="mb-3">
@@ -269,6 +308,7 @@ spl_autoload_register(function ($className) {
 
         function fillUpdateForm(id) {
             ajax_get("./ajax.php?id=" + id, function(data) {
+                document.getElementById("updt_id").value = data["id"];
                 document.getElementById("updt_nama").value = data["nama_barang"];
                 document.getElementById("updt_price").value = data["harga_satuan"];
                 document.getElementById("updt_ammount").value = data["jumlah"];
