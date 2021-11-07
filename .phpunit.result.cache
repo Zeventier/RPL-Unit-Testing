@@ -1,1 +1,1 @@
-{"version":1,"defects":{"PenjualanTest::testAddSuccess":4},"times":{"PenjualanTest::testAddSuccess":0.021}}
+{"version":1,"defects":{"PenjualanTest::testAddSuccess":4},"times":{"PenjualanTest::testAddSuccess":0.022,"PenjualanTest::testUpdateSuccess":0.001,"PenjualanTest::testDeleteSuccess":0.001}}

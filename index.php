@@ -35,7 +35,7 @@ spl_autoload_register(function ($className) {
     <div id="textHint">
 
     </div>
-    <div class="container mt-4 position-absolute top-50 start-50 translate-middle">
+    <div class="container mt-4 justify-content-center">
         <?php
         //for inserting...
         // private  $nama_barang, $harga_satuan, $jumlah, $tanggal_beli, $total;
