@@ -14,8 +14,7 @@ driver.get(url)
 
 time.sleep(1)
 try:
-    button = driver.find_element_by_id("insert-data-btn")
-
+    button = driver.find_element_by_xpath("//button[@onclick=\"fillUpdateForm(17)\"]")
     # Click Button
     button.click()
 
