@@ -50,4 +50,20 @@ class Penjualan
             return $result;
         }
     }
+    public function readById($id)
+    {
+        $sql = "SELECT * FROM $this->table WHERE id=:id";
+        $stmt = DB::prepared($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+    public function delete($id)
+    {
+        // some code
+    }
+    public function update($id)
+    {
+        // some code
+    }
 }
