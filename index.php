@@ -152,7 +152,7 @@ spl_autoload_register(function ($className) {
                 <table class="table table-light table-striped table-hover">
                     <thead>
                         <tr class="table-dark">
-                            <th scope="col">Kode barang</th>
+                            <th scope="col">Kode penjualan</th>
                             <th scope="col">Nama barang</th>
                             <th scope="col">Harga satuan</th>
                             <th scope="col">Jumlah</th>
@@ -224,7 +224,7 @@ spl_autoload_register(function ($className) {
                         </div>
                         <div class="mb-3">
                             <label for="amount" class="form-label">Jumlah</label>
-                            <input type="number" name="amount" class="fieldInsertInput form-control" id="amount" required>
+                            <input type="number" name="amount" min="0" class="fieldInsertInput form-control" id="amount" required>
                         </div>
                         <div class="mb-3">
                             <label for="date" class="form-label">Tanggal beli</label>
@@ -266,7 +266,6 @@ spl_autoload_register(function ($className) {
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Nama barang </label>
                             <input type="text" name="updt_nama" class="form-control" id="updt_nama" required>
-                            <div id="emailHelp" class="form-text">Caption</div>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Harga satuan</label>
@@ -280,13 +279,11 @@ spl_autoload_register(function ($className) {
 
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Jumlah</label>
-                            <input type="text" name="updt_amount" class="fieldUpdateInput form-control" id="updt_amount" required>
-                            <div id="updt_amount" class="form-text">Caption</div>
+                            <input type="number" name="updt_amount" min="0" class="fieldUpdateInput form-control" id="updt_amount" required>
                         </div>
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Tanggal beli</label>
                             <input type="date" name="updt_tanggal" class="form-control" id="updt_tanggal" required>
-                            <div id="emailHelp" class="form-text">Caption</div>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Total</label>
