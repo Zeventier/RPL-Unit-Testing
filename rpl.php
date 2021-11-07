@@ -8,6 +8,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <title>RPL Unit Testing</title>
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
 <?php
 spl_autoload_register(function ($className) {
@@ -19,6 +32,9 @@ spl_autoload_register(function ($className) {
 
 
 <body>
+    <div id="textHint">
+
+    </div>
     <div class="container mt-4 position-absolute top-50 start-50 translate-middle">
         <?php
         //for inserting...
@@ -67,7 +83,7 @@ spl_autoload_register(function ($className) {
                 <h5 class="card-title">Tes</h5>
                 <div class="row">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal" style="margin-bottom:10px;">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#InsertFormModal" style="margin-bottom:10px;">
                             Tambah Data
                         </button>
                     </div>
@@ -92,15 +108,14 @@ spl_autoload_register(function ($className) {
                                 $i++;
                         ?>
                                 <tr>
-                                    <th scope="row"><?php echo $i  ?></th>
+                                    <th scope="row"><?php echo $value['id']  ?></th>
                                     <td><?php echo $value['nama_barang']  ?></td>
-                                    <td><?php echo $value['harga_satuan'];  ?></td>
-                                    <td><?php echo $value['jumlah'];  ?></td>
+                                    <td><?php echo "Rp" . number_format($value['harga_satuan'], 2, ',', '.');  ?></td>
+                                    <td><?php echo number_format($value['jumlah'], 0, ',', '.');  ?></td>
                                     <td><?php echo $value['tanggal_beli'];  ?></td>
-                                    <td><?php echo $value['total'];  ?></td>
+                                    <td><?php echo "Rp" . number_format($value['total'], 2, ',', '.');  ?></td>
                                     <td class="text-right">
-
-                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#formModal">Edit</button>
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateFormModal" onclick="<?php echo "fillUpdateForm(" . $value['id'] . ")" ?>">Edit</button>
                                         <button class="btn btn-danger">Hapus</button>
                                     </td>
                                 </tr>
@@ -121,102 +136,170 @@ spl_autoload_register(function ($className) {
 
     </div>
 
-    <!-- Form modal -->
-    <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Insert Form modal -->
+    <div class="modal fade" id="InsertFormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content ">
-                <?php
-                if (isset($_GET['action']) && $_GET['action'] == 'update') {
-                    $id = (int)$_GET['id'];
-                    $result = $user->readById($id);
-                ?>
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ubah data transaksi Warung xyz</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah data transaksi Warung xyz</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post">
                     <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="Text1" class="form-label">Text </label>
-                                <input type="text" class="form-control" id="Text1">
-                                <div id="emailHelp" class="form-text">Caption</div>
+                        <div class="mb-3">
+                            <label for="Text1" class="form-label">Nama barang </label>
+                            <input type="text" name="nama" class="form-control" id="Text1">
+                            <div id="emailHelp" class="form-text">Caption</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Harga satuan</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Rp</span>
+                                </div>
+                                <input type="number" min="0" name="price" class="form-control rupiah" aria-label="Amount (to the nearest dollar)">
                             </div>
-                            <div class="mb-3">
-                                <label for="Text1" class="form-label">Text</label>
-                                <input type="text" class="form-control" id="Text1">
-                                <div id="emailHelp" class="form-text">Caption</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Text1" class="form-label">Jumlah</label>
+                            <input type="number" name="ammount" class="form-control" id="Text1">
+                            <div id="emailHelp" class="form-text">Caption</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Text1" class="form-label">Tanggal beli</label>
+                            <input type="date" name="tanggal" class="form-control" id="Text1">
+                            <div id="emailHelp" class="form-text">Caption</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Total</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Rp</span>
+                                </div>
+                                <input type="number" min="0" name="total" class="form-control rupiah" aria-label="Amount (to the nearest dollar)">
                             </div>
-                            <div class="mb-3">
-                                <label for="Text1" class="form-label">Text</label>
-                                <input type="text" class="form-control" id="Text1">
-                                <div id="emailHelp" class="form-text">Caption</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Text1" class="form-label">Text</label>
-                                <input type="text" class="form-control" id="Text1">
-                                <div id="emailHelp" class="form-text">Caption</div>
-                            </div>
-
-                        </form>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <input type="submit" class="btn btn-primary" name="submit" value="Submit" />
+
                     </div>
-
-                <?php
-
-
-                } else {
-                ?>
-
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah data transaksi Warung xyz</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form action="" method="post">
-
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label for="Text1" class="form-label">Nama barang </label>
-                                <input type="text" name="nama" class="form-control" id="Text1">
-                                <div id="emailHelp" class="form-text">Caption</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Text1" class="form-label">Harga satuan</label>
-                                <input type="text" name="price" class="form-control" id="Text1">
-                                <div id="emailHelp" class="form-text">Caption</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Text1" class="form-label">Jumlah</label>
-                                <input type="text" name="ammount" class="form-control" id="Text1">
-                                <div id="emailHelp" class="form-text">Caption</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Text1" class="form-label">Tanggal beli</label>
-                                <input type="date" name="tanggal" class="form-control" id="Text1">
-                                <div id="emailHelp" class="form-text">Caption</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Text1" class="form-label">Total</label>
-                                <input type="text" name="total" class="form-control" id="Text1">
-                                <div id="emailHelp" class="form-text">Caption</div>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <input type="submit" class="btn btn-primary" name="submit" value="Submit" />
-
-                        </div>
-                    </form>
-                <?php
-                }
-
-                ?>
-
+                </form>
 
             </div>
         </div>
     </div>
+
+
+    <!-- Update Form modal -->
+    <div class="modal fade" id="UpdateFormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit data transaksi Warung xyz</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post">
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="Text1" class="form-label">Nama barang </label>
+                            <input type="text" name="updt_nama" class="form-control" id="updt_nama">
+                            <div id="emailHelp" class="form-text">Caption</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Harga satuan</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Rp</span>
+                                </div>
+                                <input id="updt_price" type="number" min="0" name="updt_price" class="form-control rupiah" aria-label="Amount (to the nearest dollar)">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Text1" class="form-label">Jumlah</label>
+                            <input type="text" name="updt_ammount" class="form-control" id="updt_ammount">
+                            <div id="emailHelp" class="form-text">Caption</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Text1" class="form-label">Tanggal beli</label>
+                            <input type="date" name="updt_tanggal" class="form-control" id="updt_tanggal">
+                            <div id="emailHelp" class="form-text">Caption</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Total</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Rp</span>
+                                </div>
+                                <input id="updt_total" type="number" min="0" name="updt_total" class="form-control rupiah" aria-label="Amount (to the nearest dollar)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-primary" name="update" value="Update" />
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function ajax_get(url, callback) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    console.log('responseText:' + xmlhttp.responseText);
+                    try {
+                        var data = JSON.parse(xmlhttp.responseText);
+                    } catch (err) {
+                        console.log(err.message + " in " + xmlhttp.responseText);
+                        return;
+                    }
+                    callback(data);
+                }
+            };
+
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+        }
+
+        function fillUpdateForm(id) {
+            ajax_get("./ajax.php?id=" + id, function(data) {
+                document.getElementById("updt_nama").value = data["nama_barang"];
+                document.getElementById("updt_price").value = data["harga_satuan"];
+                document.getElementById("updt_ammount").value = data["jumlah"];
+                document.getElementById("updt_tanggal").value = data["tanggal_beli"];
+                document.getElementById("updt_total").value = data["total"];
+            });
+        }
+
+
+
+        // const fixedInput = document.querySelector('.fixedInput');
+        // let input1 = parseInt(document.querySelector('#input1').value);
+        // let input2 = parseInt(document.querySelector('#input2').value);
+        // let input3 = parseInt(document.querySelector('#input3').value);
+        // fixedInput.value = 0;
+        // document.addEventListener("DOMContentLoaded", event => {
+
+        //     document.querySelectorAll('.fieldInput').forEach(item => {
+        //         item.addEventListener('change', (event) => {
+        //             input1 = parseInt(document.querySelector('#input1').value);
+        //             input2 = parseInt(document.querySelector('#input2').value);
+        //             input3 = parseInt(document.querySelector('#input3').value);
+
+        //             console.log("woy");
+        //             fixedInput.value = input1 + input2 + input3;
+        //             console.log(fixedInput.value);
+
+        //         })
+        //     })
+        // })
+    </script>
 </body>
 
 </html>
