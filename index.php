@@ -177,7 +177,7 @@ spl_autoload_register(function ($className) {
                                     <td><?php echo "Rp" . number_format($value['total'], 2, ',', '.');  ?></td>
                                     <td class="text-right">
                                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateFormModal" onclick="<?php echo "fillUpdateForm(" . $value['id'] . ")" ?>">Edit</button>
-                                        <a class="btn btn-danger" href="index.php?action=delete&id=<?php echo $value['id']; ?>">Delete</a>
+                                        <a class="btn btn-danger" href="<?php echo $_SERVER['PHP_SELF'] ?>?action=delete&id=<?php echo $value['id']; ?>">Delete</a>
 
                                         <!-- <button class="btn btn-danger">Hapus</button> -->
                                     </td>
@@ -211,7 +211,7 @@ spl_autoload_register(function ($className) {
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Nama barang </label>
-                            <input type="text" name="nama" class="form-control" id="Text1">
+                            <input type="text" name="nama" class="form-control" id="Text1" required>
                             <div id="emailHelp" class="form-text">Caption</div>
                         </div>
                         <div class="mb-3">
@@ -220,17 +220,17 @@ spl_autoload_register(function ($className) {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
-                                <input type="number" min="0" name="price" class="form-control rupiah" aria-label="Amount (to the nearest dollar)">
+                                <input id="price" required type="number" min="0" name="price" class="fieldInsertInput form-control rupiah" aria-label="Amount (to the nearest dollar)">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Jumlah</label>
-                            <input type="number" name="ammount" class="form-control" id="Text1">
+                            <input type="number" name="ammount" class="fieldInsertInput form-control" id="ammount" required>
                             <div id="emailHelp" class="form-text">Caption</div>
                         </div>
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Tanggal beli</label>
-                            <input type="date" name="tanggal" class="form-control" id="Text1">
+                            <input type="date" name="tanggal" class="form-control" id="Text1" required>
                             <div id="emailHelp" class="form-text">Caption</div>
                         </div>
                         <div class="mb-3">
@@ -239,7 +239,7 @@ spl_autoload_register(function ($className) {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
-                                <input type="number" min="0" name="total" class="form-control rupiah" aria-label="Amount (to the nearest dollar)">
+                                <input id="total" type="number" min="0" name="total" class=" form-control rupiah" aria-label="Amount (to the nearest dollar)" readonly>
                             </div>
                         </div>
                     </div>
@@ -268,7 +268,7 @@ spl_autoload_register(function ($className) {
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Nama barang </label>
-                            <input type="text" name="updt_nama" class="form-control" id="updt_nama">
+                            <input type="text" name="updt_nama" class="form-control" id="updt_nama" required>
                             <div id="emailHelp" class="form-text">Caption</div>
                         </div>
                         <div class="mb-3">
@@ -277,18 +277,18 @@ spl_autoload_register(function ($className) {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
-                                <input id="updt_price" type="number" min="0" name="updt_price" class="form-control rupiah" aria-label="Amount (to the nearest dollar)">
+                                <input required id="updt_price" type="number" min="0" name="updt_price" class="fieldUpdateInput form-control rupiah" aria-label="Amount (to the nearest dollar)">
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Jumlah</label>
-                            <input type="text" name="updt_ammount" class="form-control" id="updt_ammount">
-                            <div id="emailHelp" class="form-text">Caption</div>
+                            <input type="text" name="updt_ammount" class="fieldUpdateInput form-control" id="updt_ammount" required>
+                            <div id="updt_ammount" class="form-text">Caption</div>
                         </div>
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Tanggal beli</label>
-                            <input type="date" name="updt_tanggal" class="form-control" id="updt_tanggal">
+                            <input type="date" name="updt_tanggal" class="form-control" id="updt_tanggal" required>
                             <div id="emailHelp" class="form-text">Caption</div>
                         </div>
                         <div class="mb-3">
@@ -297,7 +297,7 @@ spl_autoload_register(function ($className) {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
-                                <input id="updt_total" type="number" min="0" name="updt_total" class="form-control rupiah" aria-label="Amount (to the nearest dollar)">
+                                <input readonly id="updt_total" type="number" min="0" name="updt_total" class="form-control rupiah" aria-label="Amount (to the nearest dollar)">
                             </div>
                         </div>
                     </div>
@@ -344,26 +344,43 @@ spl_autoload_register(function ($className) {
 
 
 
-        // const fixedInput = document.querySelector('.fixedInput');
-        // let input1 = parseInt(document.querySelector('#input1').value);
-        // let input2 = parseInt(document.querySelector('#input2').value);
-        // let input3 = parseInt(document.querySelector('#input3').value);
-        // fixedInput.value = 0;
-        // document.addEventListener("DOMContentLoaded", event => {
+        const fixedInput = document.querySelector('#total');
+        let input1 = parseInt(document.querySelector('#price').value);
+        let input2 = parseInt(document.querySelector('#ammount').value);
+        fixedInput.value = 0;
+        document.addEventListener("DOMContentLoaded", event => {
 
-        //     document.querySelectorAll('.fieldInput').forEach(item => {
-        //         item.addEventListener('change', (event) => {
-        //             input1 = parseInt(document.querySelector('#input1').value);
-        //             input2 = parseInt(document.querySelector('#input2').value);
-        //             input3 = parseInt(document.querySelector('#input3').value);
+            document.querySelectorAll('.fieldInsertInput').forEach(item => {
+                item.addEventListener('change', (event) => {
+                    input1 = parseInt(document.querySelector('#price').value);
+                    input2 = parseInt(document.querySelector('#ammount').value);
 
-        //             console.log("woy");
-        //             fixedInput.value = input1 + input2 + input3;
-        //             console.log(fixedInput.value);
+                    console.log("woy");
+                    fixedInput.value = input1 * input2;
+                    console.log(fixedInput.value);
 
-        //         })
-        //     })
-        // })
+                })
+            })
+        })
+
+        const fixedInputUpdt = document.querySelector('#updt_total');
+        let input3 = parseInt(document.querySelector('#updt_price').value);
+        let input4 = parseInt(document.querySelector('#updt_ammount').value);
+        fixedInputUpdt.value = 0;
+        document.addEventListener("DOMContentLoaded", event => {
+
+            document.querySelectorAll('.fieldUpdateInput').forEach(item => {
+                item.addEventListener('change', (event) => {
+                    input3 = parseInt(document.querySelector('#updt_price').value);
+                    input4 = parseInt(document.querySelector('#updt_ammount').value);
+
+                    console.log("woy");
+                    fixedInputUpdt.value = input3 * input4;
+                    console.log(fixedInputUpdt.value);
+
+                })
+            })
+        })
     </script>
 </body>
 
