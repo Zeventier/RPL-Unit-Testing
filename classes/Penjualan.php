@@ -97,14 +97,18 @@ class Penjualan
         $stmt = (new DB)->prepared($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
+        if ($row = $stmt->fetch()) {
+            $penj = new Penjualan();
+            $penj->id = $row['id'];
+            $penj->nama_barang = $row['nama_barang'];
+            $penj->harga_satuan = $row['harga_satuan'];
+            $penj->jumlah = $row['jumlah'];
+            $penj->tanggal_beli = $row['tanggal_beli'];
+            $penj->total = $row['total'];
+        } else {
+            return null;
+        }
         $row = $stmt->fetch();
-        $penj = new Penjualan();
-        $penj->id = $row['id'];
-        $penj->nama_barang = $row['nama_barang'];
-        $penj->harga_satuan = $row['harga_satuan'];
-        $penj->jumlah = $row['jumlah'];
-        $penj->tanggal_beli = $row['tanggal_beli'];
-        $penj->total = $row['total'];
 
         // echo $hey[0];
         return $penj;
