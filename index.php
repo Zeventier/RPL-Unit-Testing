@@ -47,6 +47,7 @@ spl_autoload_register(function ($className) {
             $tanggal  = $_POST['tanggal'];
             $total  = $_POST['total'];
 
+            $penjualan->setID($uniqueId = uniqid('trans_'));
             $penjualan->setNama($nama);
             $penjualan->setHarga($price);
             $penjualan->setJumlah($amount);

@@ -10,7 +10,7 @@ class Penjualan
     private $table = 'penjualan';
 
     public $harga_satuan, $jumlah, $tanggal_beli, $total;
-    public int $id;
+    public string $id;
     public string $nama_barang;
     public function setID($id)
     {
@@ -66,10 +66,8 @@ class Penjualan
         $stmt = (new DB)->prepared($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        $hey = $stmt->fetch();
-        $result = $stmt->fetchAll();
-        // echo $hey[0];
-        return $result;
+
+        return $stmt->fetch();
     }
     public function delete($id)
     {
@@ -89,5 +87,27 @@ class Penjualan
         $stmt->bindParam(':tanggal', $this->tanggal_beli);
         $stmt->bindParam(':total', $this->total);
         return $stmt->execute();
+    }
+    public function fetchById($id)
+    {
+        $sql = "SELECT * FROM $this->table WHERE id=:id";
+        $stmt = (new DB)->prepared($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        if ($row = $stmt->fetch()) {
+            $penj = new Penjualan();
+            $penj->id = $row['id'];
+            $penj->nama_barang = $row['nama_barang'];
+            $penj->harga_satuan = $row['harga_satuan'];
+            $penj->jumlah = $row['jumlah'];
+            $penj->tanggal_beli = $row['tanggal_beli'];
+            $penj->total = $row['total'];
+        } else {
+            return null;
+        }
+        $row = $stmt->fetch();
+
+        // echo $hey[0];
+        return $penj;
     }
 }
