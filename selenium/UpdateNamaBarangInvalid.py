@@ -60,7 +60,7 @@ except NoSuchElementException:
 
 time.sleep(1)
 try:
-    button = driver.find_element_by_xpath("//input[@name=\"submit\"]")
+    button = driver.find_element_by_xpath("//input[@name=\"update\"]")
 
     # Click da button
     button.click()
