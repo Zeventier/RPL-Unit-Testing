@@ -39,8 +39,9 @@ class Penjualan
 
     public function insert()
     {
-        $sql = "INSERT INTO $this->table(nama_barang,harga_satuan,jumlah, tanggal_beli, total) VALUES(:nama,:price,:ammount,:tanggal,:total)";
+        $sql = "INSERT INTO $this->table(id,nama_barang,harga_satuan,jumlah, tanggal_beli, total) VALUES(:id,:nama,:price,:ammount,:tanggal,:total)";
         $stmt = (new DB)->prepared($sql);
+        $stmt->bindParam(':id', $this->id);
         $stmt->bindParam(':nama', $this->nama_barang);
         $stmt->bindParam(':price', $this->harga_satuan);
         $stmt->bindParam(':ammount', $this->jumlah);
@@ -90,6 +91,22 @@ class Penjualan
     }
     public function fetchById($id)
     {
+        // $sql = "SELECT * FROM $this->table WHERE id=:id";
+        // $stmt = (new DB)->prepared($sql);
+        // $stmt->bindParam(':id', $id);
+        // $stmt->execute();
+        // $row = $stmt->fetch();
+
+        // $penj = new Penjualan();
+        // $penj->id = $row['id'];
+        // $penj->nama_barang = $row['nama_barang'];
+        // $penj->harga_satuan = $row['harga_satuan'];
+        // $penj->jumlah = $row['jumlah'];
+        // $penj->tanggal_beli = $row['tanggal_beli'];
+        // $penj->total = $row['total'];
+        // return $penj;
+
+
         $sql = "SELECT * FROM $this->table WHERE id=:id";
         $stmt = (new DB)->prepared($sql);
         $stmt->bindParam(':id', $id);
@@ -102,12 +119,11 @@ class Penjualan
             $penj->jumlah = $row['jumlah'];
             $penj->tanggal_beli = $row['tanggal_beli'];
             $penj->total = $row['total'];
+            return $penj;
         } else {
             return null;
         }
-        $row = $stmt->fetch();
 
         // echo $hey[0];
-        return $penj;
     }
 }
