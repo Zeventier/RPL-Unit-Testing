@@ -144,7 +144,7 @@ spl_autoload_register(function ($className) {
                 <h5 class="card-title">Tes</h5>
                 <div class="row">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#InsertFormModal" style="margin-bottom:10px;">
+                        <button type="button" id="insert-data-btn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#InsertFormModal" style="margin-bottom:10px;">
                             Tambah Data
                         </button>
                     </div>
