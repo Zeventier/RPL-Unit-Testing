@@ -178,7 +178,7 @@ spl_autoload_register(function ($className) {
                                     <td><?php echo "Rp" . number_format($value['total'], 2, ',', '.');  ?></td>
                                     <td class="text-right">
                                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#UpdateFormModal" onclick="<?php echo "fillUpdateForm(" . $value['id'] . ")" ?>">Edit</button>
-                                        <a class="btn btn-danger" href="<?php echo $_SERVER['PHP_SELF'] ?>?action=delete&id=<?php echo $value['id']; ?>">Delete</a>
+                                        <a id="del-btn-<?php echo $value['id']; ?>" class=" btn btn-danger" href="<?php echo $_SERVER['PHP_SELF'] ?>?action=delete&id=<?php echo $value['id']; ?>">Delete</a>
 
                                         <!-- <button class="btn btn-danger">Hapus</button> -->
                                     </td>
@@ -350,7 +350,6 @@ spl_autoload_register(function ($className) {
                     input1 = parseInt(document.querySelector('#price').value);
                     input2 = parseInt(document.querySelector('#amount').value);
 
-                    console.log("woy");
                     fixedInput.value = input1 * input2;
                     console.log(fixedInput.value);
 
@@ -369,7 +368,6 @@ spl_autoload_register(function ($className) {
                     input3 = parseInt(document.querySelector('#updt_price').value);
                     input4 = parseInt(document.querySelector('#updt_amount').value);
 
-                    console.log("woy");
                     fixedInputUpdt.value = input3 * input4;
                     console.log(fixedInputUpdt.value);
 

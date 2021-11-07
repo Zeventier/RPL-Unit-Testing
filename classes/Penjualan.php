@@ -46,7 +46,8 @@ class Penjualan
         $stmt->bindParam(':price', $this->harga_satuan);
         $stmt->bindParam(':ammount', $this->jumlah);
         $stmt->bindParam(':tanggal', $this->tanggal_beli);
-        $stmt->bindParam(':total', $this->total);
+        $totalBiaya = $this->harga_satuan * $this->jumlah;
+        $stmt->bindParam(':total', $totalBiaya);
         return $stmt->execute();
     }
 
@@ -86,7 +87,8 @@ class Penjualan
         $stmt->bindParam(':price', $this->harga_satuan);
         $stmt->bindParam(':ammount', $this->jumlah);
         $stmt->bindParam(':tanggal', $this->tanggal_beli);
-        $stmt->bindParam(':total', $this->total);
+        $totalBiaya = $this->harga_satuan * $this->jumlah;
+        $stmt->bindParam(':total', $totalBiaya);
         return $stmt->execute();
     }
     public function fetchById($id)
