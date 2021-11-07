@@ -211,7 +211,7 @@ spl_autoload_register(function ($className) {
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="nama-barang" class="form-label">Nama barang </label>
-                            <input type="text" name="nama" class="form-control" id="nama-barang" required>
+                            <input type="text" name="nama" class="form-control" maxlength="255" id="nama-barang" required>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Harga satuan</label>
@@ -219,12 +219,12 @@ spl_autoload_register(function ($className) {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
-                                <input id="price" required type="number" min="0" name="price" class="fieldInsertInput form-control rupiah" aria-label="Amount (to the nearest dollar)">
+                                <input id="price" required type="number" min="0" max="2147483647" name="price" class="fieldInsertInput form-control rupiah" aria-label="Amount (to the nearest dollar)">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="amount" class="form-label">Jumlah</label>
-                            <input type="number" name="amount" min="0" class="fieldInsertInput form-control" id="amount" required>
+                            <input type="number" name="amount" min="0" max="2147483647" class="fieldInsertInput form-control" id="amount" required>
                         </div>
                         <div class="mb-3">
                             <label for="date" class="form-label">Tanggal beli</label>
@@ -265,7 +265,7 @@ spl_autoload_register(function ($className) {
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Nama barang </label>
-                            <input type="text" name="updt_nama" class="form-control" id="updt_nama" required>
+                            <input type="text" name="updt_nama" maxlength="255" class="form-control" id="updt_nama" required>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Harga satuan</label>
@@ -273,13 +273,13 @@ spl_autoload_register(function ($className) {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
-                                <input required id="updt_price" type="number" min="0" name="updt_price" class="fieldUpdateInput form-control rupiah" aria-label="Amount (to the nearest dollar)">
+                                <input required id="updt_price" type="number" min="0" max="2147483647" name="updt_price" class="fieldUpdateInput form-control rupiah" aria-label="Amount (to the nearest dollar)">
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Jumlah</label>
-                            <input type="number" name="updt_amount" min="0" class="fieldUpdateInput form-control" id="updt_amount" required>
+                            <input type="number" name="updt_amount" min="0" max="2147483647" class="fieldUpdateInput form-control" id="updt_amount" required>
                         </div>
                         <div class="mb-3">
                             <label for="Text1" class="form-label">Tanggal beli</label>
