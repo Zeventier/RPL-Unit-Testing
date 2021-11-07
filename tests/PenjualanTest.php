@@ -12,7 +12,7 @@ class PenjualanTest extends \PHPUnit\Framework\TestCase
     public function testAddSuccess()
     {
         $penjualan = new Penjualan();
-        $penjualan->setID("69");
+        $penjualan->setID("123");
         $penjualan->setNama("Test barang");
         $penjualan->setHarga(300);
         $penjualan->setJumlah(2);
@@ -32,7 +32,7 @@ class PenjualanTest extends \PHPUnit\Framework\TestCase
 
     public function testUpdateSuccess()
     {
-        $idSumber = "1636307068";
+        $idSumber = "123";
         $penjualan = new Penjualan();
         // $penjualan->setID("69");
         $penjualan->setNama("Test barang");
@@ -55,7 +55,7 @@ class PenjualanTest extends \PHPUnit\Framework\TestCase
 
     public function testDeleteSuccess()
     {
-        $idSumber = "69";
+        $idSumber = "123";
         $penjualan = new Penjualan();
 
         $penjualan->delete($idSumber);
