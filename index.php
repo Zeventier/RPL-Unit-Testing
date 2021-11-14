@@ -37,8 +37,7 @@ spl_autoload_register(function ($className) {
     </div>
     <div class="container mt-4 justify-content-center">
         <?php
-        //for inserting...
-        // private  $nama_barang, $harga_satuan, $jumlah, $tanggal_beli, $total;
+
         session_start();
         if (isset($_POST['submit'])) {
             $nama = $_POST['nama'];
@@ -47,12 +46,12 @@ spl_autoload_register(function ($className) {
             $tanggal  = $_POST['tanggal'];
             $total  = $_POST['total'];
 
-            $penjualan->setID($uniqueId = uniqid('trans_'));
-            $penjualan->setNama($nama);
-            $penjualan->setHarga($price);
-            $penjualan->setJumlah($amount);
-            $penjualan->setTanggal($tanggal);
-            $penjualan->setTotal($total);
+            $penjualan->id = uniqid('trans_');
+            $penjualan->nama_barang = $nama;
+            $penjualan->harga_satuan = $price;
+            $penjualan->jumlah = $amount;
+            $penjualan->tanggal_beli = $tanggal;
+            $penjualan->total = $penjualan->countTotal();
 
             if ($penjualan->insert()) {
                 $_SESSION['dataInput'] = 'success';
@@ -84,11 +83,12 @@ spl_autoload_register(function ($className) {
             $tanggal  = $_POST['updt_tanggal'];
             $total  = $_POST['updt_total'];
 
-            $penjualan->setNama($nama);
-            $penjualan->setHarga($price);
-            $penjualan->setJumlah($amount);
-            $penjualan->setTanggal($tanggal);
-            $penjualan->setTotal($total);
+            // $penjualan->$id = uniqid('trans_');
+            $penjualan->nama_barang = $nama;
+            $penjualan->harga_satuan = $price;
+            $penjualan->jumlah = $amount;
+            $penjualan->tanggal_beli = $tanggal;
+            $penjualan->total = $penjualan->countTotal();
 
             if ($penjualan->update($id)) {
                 $_SESSION['dataUpdate'] = 'success';

@@ -9,8 +9,8 @@
         <var name="DB_DBNAME" value="tokodb" />
     </php>
     <testsuites>
-        <testsuite name="Penjualan">
-            <directory>tests</directory>
+        <testsuite name="Test suite">
+            <directory >tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>
