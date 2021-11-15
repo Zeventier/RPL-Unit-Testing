@@ -14,7 +14,7 @@ driver.get(url)
 
 time.sleep(1)
 try:
-    button = driver.find_element_by_xpath("//a[@href=\"/index.php?action=delete&id=24\"]")
+    button = driver.find_element_by_xpath("//a[@href=\"/RPL-Unit-Testing/index.php?action=delete&id=28\"]")
 
     # Click Button
     button.click()
